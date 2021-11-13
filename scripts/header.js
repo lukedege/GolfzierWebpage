@@ -52,9 +52,9 @@ function spawn_tab(label, address)
 window.onload = () =>
 {
 	let tabs = document.getElementById("tabs");
-	tabs.appendChild(spawn_tab("🏠&#xFE0E; Home",    "index"));
-	tabs.appendChild(spawn_tab("🎮&#xFE0E; Applet",  "applet/applet"));
-	tabs.appendChild(spawn_tab("🏫&#xFE0E; Teoria",  "Theory"));
+	tabs.appendChild(spawn_tab("🏠&#xFE0E; Home"   , "index" ));
+	tabs.appendChild(spawn_tab("🎮&#xFE0E; Applet" , "applet"));
+	tabs.appendChild(spawn_tab("🏫&#xFE0E; Teoria" , "Theory"));
 	tabs.appendChild(spawn_tab("🕮&#xFE0E; Manuale", "Manual"));
 
 	let theme_tab = document.createElement("a");
