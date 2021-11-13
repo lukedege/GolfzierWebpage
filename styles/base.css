@@ -1,0 +1,139 @@
+﻿html, body {
+	min-height: 100vh;
+	background-color: var(--wallpaper);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	font-size: 16px;
+	color: var(--foreground);
+	text-align: left;
+}
+
+a, u {
+	text-decoration: none;
+}
+
+h1 {
+	text-align: center;
+	font-size: 42px;
+	color: var(--highlight);
+	border-bottom: 2px solid var(--secondary_foreground);
+	padding: 8px 16px 4px 16px;
+	margin: 4px 128px 4px 128px;
+}
+
+h2 {
+	font-size: 24px;
+	color: var(--highlight);
+	border-bottom: 1px solid var(--secondary_foreground);
+	padding: 8px 16px 2px 16px;
+	margin: 4px 16px 4px 16px;
+}
+
+h3 {
+	color: var(--highlight);
+	font-weight: bolder;
+	font-size: 18px;
+	padding: 8px 16px 2px 16px;
+	margin: 4px 16px 4px 16px;
+}
+
+h4 {
+	color: var(--highlight);
+	font-weight: bold;
+	font-style: italic;
+	padding: 8px 16px 2px 16px;
+	margin: 4px 24px 4px 24px;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+}
+.content {
+	background-color: var(--background);
+	padding: 8px 0px 8px 0px;
+	max-width: calc(960px + 8px + 8px);
+	border-left:  1px solid var(--secondary_foreground);
+	border-right: 1px solid var(--secondary_foreground);
+}
+
+p {
+	padding: 4px 7px 2px 4px;
+	margin: 4px 48px 2px 48px;
+	line-height: 25px;
+}
+
+ul {
+	margin: 4px 48px 2px 80px;
+}
+
+ul.math > li {
+	line-height: 30px;
+}
+
+img.centered {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%
+}
+
+img.logo {
+	width: 128px;
+	height: 64px;
+	filter: invert(var(--invert));
+}
+
+/* ==================================================================================================== TABS BEG*/
+
+.tabs {
+	display: flex;
+}
+/* Style tab links */
+.tablink {
+	background-color: var(--secondary_background);
+	color: var(--highlight);
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	font-size: 17px;
+}
+
+	.tablink.current {
+		background-color: var(--secondary_foreground);
+		color: var(--secondary_background);
+		font-weight: bold;
+	}
+
+	.tablink:hover {
+		background-color: var(--secondary_foreground);
+	}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+	color: white;
+	display: none;
+	padding: 100px 20px;
+	height: 100%;
+}
+/* ==================================================================================================== TABS END*/
+/* ==================================================================================================== CODE BEG*/
+
+code {
+	border: 1px solid var(--foreground);
+	margin: 4px 48px 2px 48px;
+}
+
+/* ==================================================================================================== CODE END*/
+/* ==================================================================================================== MJAX BEG*/
+.CtxtMenu_Menu
+{
+	background: var(--background);
+	color: var(--foreground);
+}
+/* ==================================================================================================== MJAX END*/

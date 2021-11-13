@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<script src="scripts/header.js"></script>
+</head>
+<body>
+	<div class="tabs" id="tabs"></div>
+
+	<div class="container">
+		<div class="content">
+			<h1><img class="centered logo" src="Images/Logo.png" />Golfzier</h1>
+			<h2>Teoria</h2>
+			<h3>Superfici di Bezier</h3>
+			<p>
+				Le superfici di Bezier sono l'estensione naturale a tre dimensioni delle curve di Bezier: fin da quando sono state definite dall'omonimo
+				ingegnere francese, sono state utilizzate estensivamente per la modellazione di superfici in ambito di design e in seguito sono state
+				ampiamente adottate in computer grafica e nel CAD in quanto sono intuitive e semplici da rappresentare.
+			</p>
+			<p>
+				Ogni superficie di Bezier è costruita a partire da un insieme finito di punti $ p_{i,j} $ detto poliedro di controllo,
+				il quale stabilisce l'andamento del supporto della superficie.
+				<!--TODO inserisci immagine carina-->
+			</p>
+			<p>
+				Ci sono due modi per identificare una superficie di Bezier: tramite algoritmo dei polinomi di Bernstein o tramite algoritmo di Casteljau.
+			</p>
+			<h4>Algoritmo dei polinomi di Bernstein</h4>
+			<p>
+				Vogliamo definire la nostra superficie di Bezier come combinazione lineare dei punti del poliedro di controllo, pertanto nella forma
+				$$ P(u,v) = \sum_{\substack{i=0...h \\ j=0...k}}f_{i,j}(u,v)P_{i,j} $$
+				dove:
+				<ul class="math">
+					<li>$P_{i,j}$ sono i punti $P_{0,0},...,P_{h,k} \in \mathbb{E}^3$ del poliedro di controllo di bigrado $ (h,k) $ e dimensioni $(h+1) \cdot (k+1)$, con $h \ge 1, k \ge 1$ e $0 \le i \le h - 1, 0 \le j \le k - 1 $</li>
+					<li>La coppia di valori $(u,v)$ sono coordinate parametriche appartenenti al quadrato unitario $[0,1]\times[0,1]$</li>
+					<li>$f_{i,j}(u,v)$ sono polinomi opportunamente scelti</li>
+				</ul>
+			</p>
+			<p>
+				osserviamo che $P(u,v)$ è una funzione che mappa ogni punto del quadrato unitario nel sistema di riferimento in cui vivono i punti di controllo, ovvero
+				$$ P(u,v) : [0,1]\times[0,1] \rightarrow \mathbb{E}^3 $$
+			</p>
+			<p>
+				Le funzioni polinomiali considerate in questo caso sono i polinomi di Bernstein definiti in modo generico come:
+				$$ B_i^n(u) = \binom{n}{i} u^i(1-u)^{n-i} $$
+				dove
+				$$ \binom{n}{i} = \frac{n!}{i!(n-i)!}$$
+				è il coefficiente binomiale.
+			</p>
+			<p>
+				Possiamo quindi riscrivere la precedente equazione per la superficie di Bezier come:
+				$$
+				\begin{align}
+				P(u,v) & = \sum_{i=0}^h B_i^h(u)\sum_{j=0}^k B_j^k(v)P_{i,j} \\
+				& = \sum_{i=0}^h \sum_{j=0}^k B_i^h(u)B_j^k(v)P_{i,j}
+				\end{align}
+				$$
+
+			</p>
+
+			<h4>Algoritmo di Casteljau</h4>
+			<p>
+				L'algoritmo di Casteljau, estensione del medesimo algoritmo applicato sulle curve, rappresenta un metodo ricorsivo più "geometrico"
+				per stabilire tutti i punti di una superficie di Bezier.
+			</p>
+			<p>
+				Come nel precedente metodo, prendiamo in considerazione il quadrato unitario $[0,1]\times[0,1]$ come dominio di definizione.
+				Fissiamo gli $(h+1) \cdot (k+1)$ punti del poliedro di controllo $\langle P_{0,0},...,P_{h,k}\rangle$ e una coppia di valori
+				$(u,v) \in [0,1]\times[0,1]$.
+			</p>
+			<p>
+				Consideriamo ora i punti del poliedro disposti su una griglia combinatoria, la quale dividerà il poliedro in
+				$h \cdot k$ quadrilateri, ognuno avente come vertici i punti $\langle P_{i, j}, P_{i+1, j}, P_{i, j+1}, P_{i+1, j+1} \rangle$,
+				con $0 \le i \le (h - 1), 0 \le j \le (k - 1) $.
+			</p>
+			<p>
+				Per ognuno di questi quadrilateri $q_{i,j}$ vogliamo determinare un nuovo punto $P^1_{i,j}$:
+				per farlo otteniamo prima sui segmenti $\overline{r_i} = \overline{P_{i,j},P_{i,j+1}},\  \overline{r_{i+1}} = \overline{P_{i+1,j},P_{i+1,j+1}}$ del quadrilatero due punti $A_i,\ A_{i+1}$ tale per cui sia verificata le seguenti identità fra rapporti semplici
+				$$ (0, u, 1) = (P_{i,j}, A_i, P_{i,j+1}) = (P_{i+1,j}, A_{i+1}, P_{i+1,j+1})$$
+			</p>
+			<p>
+				A questo punto, sul segmento $\overline{A_i,A_{i+1}}$ determiniamo $P^1_{i,j}$ in modo che verifichi la seguente identità fra rapporti semplici:
+				$$ (0, v, 1) = (A_i, P^1_{i,j}, A_{i+1}) $$
+
+				Una volta considerato ogni quadrilatero, avremo ottenuto $h \cdot k$ nuovi punti: a loro volta essi descriveranno un nuovo
+				poliedro di controllo (detto di 1° livello) a cui potremo riapplicare il procedimento appena spiegato, da cui otterremo
+				$(h-1) \cdot (k-1)$ nuovi punti che formeranno il poliedro di 2° livello e così via.
+			</p>
+			<p>
+				La ricorsione termina quando ottengo un solo punto $P^{f}_{0, 0}$, dove $f = max(h,k)$. <br />
+				Questo non è altro che il punto della superficie di Bezier corrispondente alla coppia di valori $(u,v)$
+				che avevamo fissato sul quadrato unitario.
+			</p>
+			<p>
+				Ripetendo questo processo per ogni coppia $(u,v) \in [0,1]\times[0,1]$, otterremo la superficie di Bezier completa.
+			</p>
+			<h3>Incollamento di più superfici</h3>
+			<p>
+				Le superfici di Bezier crescono di complessità quanto più è alto il bigrado del poliedro di controllo, ovvero il numero
+				di punti di controllo in esso contenuti, facendo quindi anche crescere la complessità computazionale dei calcoli necessari
+				per trovare tutti i punti della superficie (basti pensare che il grado dei polinomi di Bernstein dipende dal bigrado del poliedro).
+			</p>
+			<p>
+				Inoltre le superfici di Bezier non hanno alcuna possibilità di avere controllo locale: qualsiasi modifica ai punti di controllo
+				modificherebbe l'intera superficie risultante, potenzialmente in modo drastico, richiedendo quindi l'intera ri-computazione di essa.
+			</p>
+			<p>
+				Per questo motivo l'approccio più opportuno quando si deve lavorare con superfici molto estese è utilizzare superfici di bigrado minore,
+				generalmente bicubiche o simili, e "incollarle" fra di loro creando una patch, dando appunto l'illusione di lavorare con una superficie
+				complessa ma eliminando i problemi citati pocanzi.
+			</p>
+			<h4>Condizioni di incollamento</h4>
+			<p>
+				Al fine di ottenere una parvenza di continuità in una patch di superfici è necessario porre alcuni vincoli sugli estremi delle superfici da incollare:
+				<ul class="math">
+					<li>Continuità $C^0$: le superfici devono condividere lo stesso bordo, pertanto la stessa curva, in prossimità dell'incollamento</li>
+					<li>Continuità $C^1$: lungo tutti i punti della curva su cui avviene l'incollamento il piano tangente e il versore normale sono gli stessi sia che essi vengano considerati sulla prima o sulla seconda superficie</li>
+				</ul>
+			</p>
+			<p>
+				Fortunatamente, i punti dei poliedri di controllo delle superfici da incollare ci aiutano a stabilire in modo semplice se queste condizioni sono verificate
+				<ul class="math">
+					<li>La condizione $C^0$ è banalmente soddisfatta quando i punti di controllo al bordo da incollare di entrambe le superfici coincidono</li>
+					<li>Per la condizione $C^1$ è necessario osservare anche i punti di controllo appena adiacenti a quelli sul bordo da incollare: essi devono essere allineati e soddisfare lo stesso rapporto semplice che hanno sul piano $uv$</li>
+				</ul>
+			</p>
+
+			<h3>Scelte implementative</h3>
+			<h4>Terreno</h4>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			<h4>Incollamenti</h4>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+			<h2>Code</h2>
+			<pre><code>public class Main()
+	{
+	public static void main() 
+		{
+		Console.WriteLine("C++ is better :)");
+		}
+	}
+			</code></pre>
+		</div>
+	</div>
+</body>
+</html>

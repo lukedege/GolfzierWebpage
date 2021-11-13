@@ -1,0 +1,10 @@
+﻿/* Dark theme*/
+:root {
+	--wallpaper:            rgb(  0,   0,   0);
+	--background:           rgb( 15,  15,  18);
+	--secondary_background: rgb( 30,  30,  40);
+	--highlight:            rgb(240, 240, 255);
+	--foreground:           rgb(230, 230, 240);
+	--secondary_foreground: rgb(100, 100, 120);
+	--invert: 1;
+}

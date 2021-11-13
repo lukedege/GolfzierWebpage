@@ -1,0 +1,10 @@
+﻿/* Blind theme*/
+:root {
+	--wallpaper:            rgb(200, 200, 200);
+	--background:           rgb(255, 255, 255);
+	--secondary_background: rgb(200, 200, 255);
+	--highlight:            rgb(  0,  50,  80);
+	--foreground:           rgb(  0,   0,   0);
+	--secondary_foreground: rgb(100, 100, 120);
+	--invert: 0;
+}
