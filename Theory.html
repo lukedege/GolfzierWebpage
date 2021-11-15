@@ -12,23 +12,23 @@
 		<div class="content">
 			<h1><img class="centered logo" src="Images/Logo.png" />Golfzier</h1>
 			<h2>Teoria</h2>
-			<h3>Superfici di Bezier</h3>
+			<h3>Superfici di B&eacute;zier</h3>
 			<p>
-				Le superfici di Bezier sono l'estensione naturale a tre dimensioni delle curve di Bezier: fin da quando sono state definite dall'omonimo
+				Le superfici di B&eacute;zier sono l'estensione naturale a tre dimensioni delle curve di B&eacute;zier: fin da quando sono state definite dall'omonimo
 				ingegnere francese, sono state utilizzate estensivamente per la modellazione di superfici in ambito di design e in seguito sono state
 				ampiamente adottate in computer grafica e nel CAD in quanto sono intuitive e semplici da rappresentare.
 			</p>
 			<p>
-				Ogni superficie di Bezier è costruita a partire da un insieme finito di punti $ p_{i,j} $ detto poliedro di controllo,
+				Ogni superficie di B&eacute;zier è costruita a partire da un insieme finito di punti $ p_{i,j} $ detto poliedro di controllo,
 				il quale stabilisce l'andamento del supporto della superficie.
 				<!--TODO inserisci immagine carina-->
 			</p>
 			<p>
-				Ci sono due modi per identificare una superficie di Bezier: tramite algoritmo dei polinomi di Bernstein o tramite algoritmo di Casteljau.
+				Ci sono due modi per identificare una superficie di B&eacute;zier: tramite algoritmo dei polinomi di Bernstein o tramite algoritmo di Casteljau.
 			</p>
 			<h4>Algoritmo dei polinomi di Bernstein</h4>
 			<p>
-				Vogliamo definire la nostra superficie di Bezier come combinazione lineare dei punti del poliedro di controllo, pertanto nella forma
+				Vogliamo definire la nostra superficie di B&eacute;zier come combinazione lineare dei punti del poliedro di controllo, pertanto nella forma
 				$$ P(u,v) = \sum_{\substack{i=0...h \\ j=0...k}}f_{i,j}(u,v)P_{i,j} $$
 				dove:
 				<ul class="math">
@@ -49,7 +49,7 @@
 				è il coefficiente binomiale.
 			</p>
 			<p>
-				Possiamo quindi riscrivere la precedente equazione per la superficie di Bezier come:
+				Possiamo quindi riscrivere la precedente equazione per la superficie di B&eacute;zier come:
 				$$
 				\begin{align}
 				P(u,v) & = \sum_{i=0}^h B_i^h(u)\sum_{j=0}^k B_j^k(v)P_{i,j} \\
@@ -62,7 +62,7 @@
 			<h4>Algoritmo di Casteljau</h4>
 			<p>
 				L'algoritmo di Casteljau, estensione del medesimo algoritmo applicato sulle curve, rappresenta un metodo ricorsivo più "geometrico"
-				per stabilire tutti i punti di una superficie di Bezier.
+				per stabilire tutti i punti di una superficie di B&eacute;zier.
 			</p>
 			<p>
 				Come nel precedente metodo, prendiamo in considerazione il quadrato unitario $[0,1]\times[0,1]$ come dominio di definizione.
@@ -89,20 +89,20 @@
 			</p>
 			<p>
 				La ricorsione termina quando ottengo un solo punto $P^{f}_{0, 0}$, dove $f = max(h,k)$. <br />
-				Questo non è altro che il punto della superficie di Bezier corrispondente alla coppia di valori $(u,v)$
+				Questo non è altro che il punto della superficie di B&eacute;zier corrispondente alla coppia di valori $(u,v)$
 				che avevamo fissato sul quadrato unitario.
 			</p>
 			<p>
-				Ripetendo questo processo per ogni coppia $(u,v) \in [0,1]\times[0,1]$, otterremo la superficie di Bezier completa.
+				Ripetendo questo processo per ogni coppia $(u,v) \in [0,1]\times[0,1]$, otterremo la superficie di B&eacute;zier completa.
 			</p>
 			<h3>Incollamento di più superfici</h3>
 			<p>
-				Le superfici di Bezier crescono di complessità quanto più è alto il bigrado del poliedro di controllo, ovvero il numero
+				Le superfici di B&eacute;zier crescono di complessità quanto più è alto il bigrado del poliedro di controllo, ovvero il numero
 				di punti di controllo in esso contenuti, facendo quindi anche crescere la complessità computazionale dei calcoli necessari
 				per trovare tutti i punti della superficie (basti pensare che il grado dei polinomi di Bernstein dipende dal bigrado del poliedro).
 			</p>
 			<p>
-				Inoltre le superfici di Bezier non hanno alcuna possibilità di avere controllo locale: qualsiasi modifica ai punti di controllo
+				Inoltre le superfici di B&eacute;zier non hanno alcuna possibilità di avere controllo locale: qualsiasi modifica ai punti di controllo
 				modificherebbe l'intera superficie risultante, potenzialmente in modo drastico, richiedendo quindi l'intera ri-computazione di essa.
 			</p>
 			<p>
