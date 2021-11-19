@@ -88,6 +88,13 @@ img.logo {
 	filter: invert(var(--invert));
 }
 
+.subtitle{
+	text-align: center;
+	font-size: 14px;
+	font-style:italic;
+	padding-top: 0px;
+}
+
 /* ==================================================================================================== TABS BEG*/
 
 .tabs {
