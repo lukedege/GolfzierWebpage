@@ -10,7 +10,7 @@
 
 	<div class="container">
 		<div class="content">
-			<h1><img class="centered logo" src="Images/Logo.png" />Golfzier</h1>
+			<h1><img class="centered logo gamelogo" src="Images/Logo.png" />Golfzier</h1>
 			<h2>Teoria</h2>
 			<h3>Superfici di B&eacute;zier</h3>
 			<p>
@@ -126,22 +126,185 @@
 				</ul>
 			</p>
 
-			<h3>Scelte implementative</h3>
-			<h4>Terreno</h4>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			<h4>Incollamenti</h4>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
 			<h2>Code</h2>
-			<pre><code>public class Main()
+			<h3>Terreno</h3>
+			<p>
+				Come detto prima, il terreno è composto da una serie di superfici di Bezier. Nel gioco compaiono solo superfici di 4° grado, tuttavia il codice è generalizzato per supportare superfici di qualsiasi grado.
+				<br />
+				Siccome lavoriamo sempre su un piano ed i punti di controllo sono fissati ed equidistanti su due assi, molte funzioni possono essere semplificate. I nostri input ed output sono sempre e solo l'altezza dei punti/vertici.
+				<br />
+				Abbiamo quindi una funzione che prende in input la matrice delle altezze dei punti di controllo e la risoluzione voluta, e manda in output una matrice di dimensioni pari alla risoluzione desiderata contenente le altezze dei vertici.
+			</p>
+			<pre><code>public static utils.Matrix&ltfloat> bezier_points(utils.Matrix&ltVector3> control_points, int resolution)
 	{
-	public static void main() 
+	int degree = control_points.width - 1;
+
+	var ret = new utils.Matrix&ltfloat>(resolution, resolution, 0f);
+
+	for (int y = 0; y < resolution; y++)
 		{
-		Console.WriteLine("C++ is better :)");
+		for (int x = 0; x < resolution; x++)
+			{
+			float u = ((float)x) / (float)(resolution - 1);
+			float v = ((float)y) / (float)(resolution - 1);
+
+			ret[x, y] = bezier_point(control_points, u, v).y;
+			}
+		}
+	return ret;
+	}</code></pre>
+
+			<p>
+				L'altezza dei singoli punti viene quindi calcolata con la funzione bezier_point, che sfrutta l'algoritmo dei polinomi di Bernstein sopra descritto.
+			</p>
+			<pre><code>private static Vector3 bezier_point(utils.Matrix&ltVector3> control_points, float u, float v)
+	{
+	var ret = Vector3.zero;
+	var N_i = control_points.width - 1; 
+	var N_j = control_points.height - 1;
+
+	for (int i = 0; i < control_points.width; i++)
+		{
+		float bern1 = binomial(N_i, i) * Mathf.Pow(u, i) * Mathf.Pow((1 - u), (N_i - i));
+		for (int j = 0; j < control_points.height; j++)
+			{
+			float bern2 = binomial(N_j, j) * Mathf.Pow(v, j) * Mathf.Pow((1 - v), (N_j - j));
+
+			ret += bern1 * bern2 * control_points[i, j];
+			}
+		}
+	return ret;
+	}</code></pre>
+			<h3>Incollamenti</h3>
+			<p>
+				Anche per garantire la conformità alle condizioni di incollamento, l'aver fissato le coordinate dei punti di controllo su due assi, ha portato a semplificazioni nella struttura del codice.
+				<br />
+				Per motivi di gameplay, oltre a garantire la conformità alle condizioni di incollamento dei punti di controllo manipolati, dobbiamo anche garantire la coerenza dei valori minimi e massimi di altezza dei punti coinvolti in situazioni di incollamento.
+				<br />
+				Iniziamo con il presentare la funzione generica che si occupa di aggiornare tutti i valori coinvolti, a prescindere dalla natura del punto in analisi.
+				La funzione update_point viene chiamata quando un punto qualsiasi viene mosso.
+			</p>
+			<pre><code>public void update_point(float new_height)
+	{
+	float delta = update_height_mine(new_height);
+
+	update_height_pivot(delta); //performs actions only for pivots
+	update_height_glued(delta, gluing_conditions_recursions); //performs actions only for glued points
+	update_tiles();
+	}</code></pre>
+
+			<p>
+				Nella funzione update_height_mine aggiorniamo l'altezza del punto corrente. Al fine di limitare l'accumulazione di errori dovuti all'inaccuratezza delle operazioni in floating point, aggiorniamo il delta in maniera relativa alla posizione a inizio livello del punto, piuttosto che alla posizione attuale.
+				Questo è un dettaglio implementativo che non ha effetto sui calcoli seguenti.
+			</p>
+			<pre><code>private float update_height_mine(float new_height)
+	{
+	float old_height = height;
+	float delta = new_height - height;
+	height = new_height;
+
+	float old_delta_from_beg = Mathf.Abs(height_beg - old_height);
+	float new_delta_from_beg = Mathf.Abs(height_beg - new_height);
+
+	Level_manager.manager.update_terraforming_points(old_delta_from_beg, new_delta_from_beg);
+
+	return delta;
+	}</code></pre>
+
+			<h4>Pivot</h4>
+			<p>
+				A prescindere dal fatto che il nostro incollamento coinvolga 2 o 4 superfici, muovere il punto condiviso avrà sempre lo stesso effetto: tutti i punti incollati associati devono muoversi dello stesso valore nello stesso verso. Questo garantisce che le distanze relative tra i punti incollati e quello condiviso rimangano costanti.
+				Inoltre, le altezze massime e minime dei punti incollati non sono assolute, bensì relative al punto condiviso. Quindi muovere il punto condivisò cambierà anche altezze minime e massime dei punti incollati dello stesso delta.
+			</p>
+			<pre><code>private void update_height_pivot(float delta_y)
+	{
+	if (!am_pivot) { return; }
+
+	foreach (var cp in glued_to_me)
+		{
+		cp.height_beg += delta_y;
+		cp.height_min += delta_y;
+		cp.height_max += delta_y;
+
+		cp.moved_reference_update();
+
+		cp.update_line();
+		cp.update_height_pivot(delta_y / 2);
 		}
 	}
-			</code></pre>
+</code></pre>
+
+			<h4>Punto condiviso tra due superfici</h4>
+			<p>
+				È necessario distinguere due situazioni di incollamento: la prima, quando un punto di controllo è condiviso tra due superfici adiacenti (ovvero si trova nel lato comune), e la seconda, quando un punto di controllo è condiviso tra quattro superfici adiacenti (ovvero si trova nell'angolo comune).
+				<br />
+				Per la prima situazione, abbiamo un punto condiviso C e due punti incollati A e B.
+				Dobbiamo far si che sia sempre vera la seguente condizione:
+				<br />
+				$A.y - C.y == C.y - B.y$
+				<br />
+				Ovvero il delta in altezza tra un punto incollato ed il punto condiviso, dev'essere opposto al delta in altezza tra l'altro punto incollato ed il punto condiviso.
+				Per garantire ciò, quando il giocatore muove un punto incollato, il movimento opposto viene applicato all'altro punto incollato.
+				<br />
+				Nella funzione update_height_glued, aggiorniamo l'altezza di eventuali punti incollati.
+				La nuova altezza del punto incollato al punto che stiamo muovendo (nel codice glue_other) sarà quindi l'altezza con delta opposto rispetto al punto condiviso (glue_pivot)
+			</p>
+			<pre><code>private void update_height_glued(float delta)
+	{
+	height = Mathf.Clamp(height, height_min, height_max);
+
+	if (am_glued)
+		{
+		var other_new_height = (0 - (height - glue_pivot.height)) + glue_pivot.height;
+
+		float other_delta = other_new_height - glue_other.height;
+		glue_other.update_height_mine(other_new_height);
+
+		glue_other.update_tiles();
+
+		glue_other.update_height_pivot(other_delta);
+		glue_other.update_height_glued(delta);
+		}
+
+	update_line();
+	}</code></pre>
+
+			<h4>Punto condiviso tra quattro superfici</h4>
+			<p>
+				Per la seconda situazione le cose si fanno più complicate.
+			</p>
+			<img class="centered" src="Images/Gluing_Pain.png" />
+			<p>
+				Abbiamo un punto Z condiviso tra quattro superfici (1, 2, 3, 4), che fa da pivot per 4 punti incollati A opposto a C e B opposto a D.
+				<br />
+				Questi punti sono a loro volta ciascuno condiviso tra due superfici, per cui hanno una loro coppia di punti incollati. Ciascuno di questi punti ha tuttavia due diversi pivot in due assi diversi.
+				<br />
+				Il codice prima proposto si occupa già di gestire sia lo spostamento di Z (spostando A, B, C e D dello stesso delta, che a loro volta spostano F, G, H ed E), sia lo spostamento di A, B, C e D, che muovono il punto loro opposto, ed in quanto pivot alzano/abbassano la coppia di punti a loro associati.
+				Tuttavia F, G, H ed E avendo ciascuno due punti incollati, porterebbero ad una ricorsione infinita se cercassimo di aggiornare i punti adiacenti a quello mosso. Sappiamo però che quando questo si verifica sono sempre 4 i punti coinvolti.
+				<br />
+				La soluzione quindi è stata di memorizzare per ogni punto incollato solo uno dei suoi opposti (in senso orario, scelta completamente arbitraria). Durante la generazione dei punti di controllo, ai punti viene anche dato un valore di "ricorsione" pari a 1 per i punti soggetti ad incollamento "a due" e 4 per i punti soggetti ad incollamento "a quattro". Quel valore viene utilizzato nella prima delle chiamate di aggiornamento, e quando update_height_glued è chiamata ricorsivamente, viene decrementato ad ogni chiamata.
+				<br />
+				Perciò, muovere F di un delta x, muoverà G di -x, che a sua volta muoverà H di -(-x), che a sua volta muoverà E di -(-(-x)). Arrivati ad aggiornare E, recursion sarà sceso a 0, e tutti i punti saranno staati aggiornati.
+			</p>
+			<pre><code>private void update_height_glued(float delta, int recursion)
+	{
+	height = Mathf.Clamp(height, height_min, height_max);
+
+	if (am_glued && recursion > 0)
+		{
+		var other_new_height = (0 - (height - glue_pivot.height)) + glue_pivot.height;
+
+		float other_delta = other_new_height - glue_other.height;
+		glue_other.update_height_mine(other_new_height);
+
+		glue_other.update_tiles();
+
+		glue_other.update_height_pivot(other_delta);
+		glue_other.update_height_glued(delta, recursion - 1);
+		}
+
+	update_line();
+	}</code></pre>
 		</div>
 	</div>
 </body>
