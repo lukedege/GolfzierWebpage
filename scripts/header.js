@@ -1,4 +1,8 @@
 ﻿
+document.write('<meta charset="UTF-8">');
+document.write('<meta name="keywords" content="Golfzier, Unity, C#">');
+document.write('<meta name="author" content="Michael Marchesan, Luca Di Gennaro">');
+
 // Title and favicon
 document.write('<title>Golfzier</title>');
 document.head.appendChild(Object.assign(document.createElement("link"), { rel: "icon", href: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>" }))
