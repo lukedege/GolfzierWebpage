@@ -273,7 +273,7 @@
 			<p>
 				Per la seconda situazione le cose si fanno più complicate.
 			</p>
-			<img class="centered" src="Images/Gluing_Pain.png" />
+			<img class="centered" src="Images/Gluing_pain.png" />
 			<p>
 				Abbiamo un punto Z condiviso tra quattro superfici (1, 2, 3, 4), che fa da pivot per 4 punti incollati A opposto a C e B opposto a D.
 				<br />
@@ -284,7 +284,7 @@
 				<br />
 				La soluzione quindi è stata di memorizzare per ogni punto incollato solo uno dei suoi opposti (in senso orario, scelta completamente arbitraria). Durante la generazione dei punti di controllo, ai punti viene anche dato un valore di "ricorsione" pari a 1 per i punti soggetti ad incollamento "a due" e 4 per i punti soggetti ad incollamento "a quattro". Quel valore viene utilizzato nella prima delle chiamate di aggiornamento, e quando update_height_glued è chiamata ricorsivamente, viene decrementato ad ogni chiamata.
 				<br />
-				Perciò, muovere F di un delta x, muoverà G di -x, che a sua volta muoverà H di -(-x), che a sua volta muoverà E di -(-(-x)). Arrivati ad aggiornare E, recursion sarà sceso a 0, e tutti i punti saranno staati aggiornati.
+				Perciò, muovere F di un delta <b><i>x</i></b>, muoverà G di <b><i>-x</i></b>, che a sua volta muoverà H di <b><i>-(-x)</i></b>, che a sua volta muoverà E di <b><i>-(-(-x))</i></b>. Arrivati ad aggiornare E, recursion sarà sceso a 0, e tutti i punti saranno staati aggiornati.
 			</p>
 			<pre><code>private void update_height_glued(float delta, int recursion)
 	{
