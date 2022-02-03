@@ -86,6 +86,12 @@ img.logo {
 	filter: invert(var(--invert));
 }
 
+img.symbol {
+	filter: invert(var(--invert));
+	width: 16px;
+	height: 16px;
+}
+
 img.gamelogo {
 	width: 128px;
 	height: 64px;

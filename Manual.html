@@ -17,7 +17,20 @@
 				Lo scopo del gioco è mandare la pallina da golf in buca; tuttavia la pallina non viene lanciata, ma il giocatore dovrà guidarla alla buca modificando il terreno di gioco.<br />
 				Per modificare il terreno sarà necessario manipolare dei punti di controllo; tale operazione ha un costo in punteggio pari alla lunghezza dello spostamento effettuato.
 				Il punteggio disponibile è diverso per ogni livello, ed è visibile in alto a sinistra. È possibile tuttavia andare in punteggio negativo e recuperare i punti lungo la strada raccogliendo delle monete.<br />
-				Un livello è superato quando la pallina entra in buca ed il punteggio rimanente è >= 0.
+				Un livello è superato quando la pallina entra in buca ed il punteggio rimanente è >= 0. <br />
+				Nel caso il tentativo di mettere la pallina in buca fallisca (per esempio la pallina cade al di fuori del terreno di gioco) oppure il punteggio al momento dell'entrata in buca fosse negativo, la pallina tornerà
+				alla posizione originale e il giocatore potrà modificare ulteriormente il terreno. <br />
+				È inoltre possibile aumentare la velocità della simulazione.
+			</p>
+
+			<h2>Tutorial</h2>
+			<p>
+				Il gioco offre ai giocatori novizi una breve modalità tutorial in cui è possibile sperimentare il gioco in modo guidato. <br/>
+				Ogni livello tutorial copre una porzione delle meccaniche di gioco in modo da poterle imparare in modo pratico e incrementale, offrendo:
+				<ul>
+					<li>Una spiegazione testuale sulla meccanica trattata</li>
+					<li>Una serie di obiettivi secondari da completare prima di imbucare la pallina</li>
+				</ul>
 			</p>
 
 			<h2>Camera</h2>
@@ -38,6 +51,23 @@
 				<li>X: Attiva/disattiva visibilità dei punti lontani dal mouse.</li>
 			</ul>
 
+			<h2>Interfaccia di gioco</h2>
+			<ul>
+				<li><img class="symbol" src="Images/undo.png" /> : cfr. Altri controlli → Z</li>
+				<li><img class="symbol" src="Images/redo.png" /> : cfr. Altri controlli → Y</li>
+				<li>
+					<img class="symbol" src="Images/settings.png" /> : Mette in pausa il gioco ed apre il menu di impostazioni, in cui è possibile:
+					<ul>
+						<li>Consultare i controlli di gioco</li>
+						<li><img class="symbol" src="Images/settings.png" /> : Richiudere il menu di pausa e tornare al gioco</li>
+						<li><img class="symbol" src="Images/audio.png" /> : Regolare il volume dell'audio</li>
+						<li><img class="symbol" src="Images/restart.png" /> : Reimpostare il livello nel suo stato originale</li>
+						<li><img class="symbol" src="Images/exit.png" /> : Tornare al menù principale (i progressi nel corrente livello verranno persi!)</li>
+					</ul>
+				</li>
+				<li><img class="symbol" src="Images/ffw.png" /> : velocizza la simulazione della pallina</li>
+			</ul>
+
 			<h2>Terreno</h2>
 			<p>
 				Il terreno è composto da una o più tiles adiacenti; ogni tile è una superfice di B&eacute;zier di grado 4. Ogni tile possiede 5x5 punti di controllo, ed i punti di confine sono condivisi con le tiles adiacenti.<br />
@@ -50,7 +80,7 @@
 				Ogni punto di controllo ha un'altezza massima (cubo <span style="background-image: radial-gradient(blue 50%, transparent)">blu</span>),
 				una minima (cubo <span style="background-image: radial-gradient(red 50%, transparent)">rosso</span>),
 				ed una di partenza (cubo <span style="background-image: radial-gradient(purple 50%, transparent)">viola</span>).<br />
-				Il punto di controllo vero e proprio è rappresentato da una sfera, che può essere spostata cliccando su di essa con il tasto sinistro del mouse e tenendo il tasto premuto fino durante il trascinamento.
+				Il punto di controllo vero e proprio è rappresentato da una sfera, che può essere spostata cliccando su di essa con il tasto sinistro del mouse (per utenti Apple clic con entrambe le dita sul pulsante del mouse) e tenendo il tasto premuto fino durante il trascinamento.
 			</p>
 			<img class="centered" src="Images/CP_anatomy.png" />
 			<p>
