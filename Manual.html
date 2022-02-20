@@ -25,12 +25,15 @@
 
 			<h2>Tutorial</h2>
 			<p>
-				Il gioco offre ai giocatori novizi una breve modalità tutorial in cui è possibile sperimentare il gioco in modo guidato. <br/>
+				Il gioco offre ai giocatori novizi una breve modalità tutorial in cui è possibile sperimentare il gioco in modo guidato. <br />
 				Ogni livello tutorial copre una porzione delle meccaniche di gioco in modo da poterle imparare in modo pratico e incrementale, offrendo:
 				<ul>
 					<li>Una spiegazione testuale sulla meccanica trattata</li>
 					<li>Una serie di obiettivi secondari da completare prima di imbucare la pallina</li>
 				</ul>
+			</p>
+			<p>
+				È fortemente consigliato completare il tutorial in modo da poter comprendere le eventuali complessità del gioco in modo pratico e apprezzarlo al massimo delle possibilità.
 			</p>
 
 			<h2>Camera</h2>
@@ -84,36 +87,38 @@
 			</p>
 			<img class="centered" src="Images/CP_anatomy.png" />
 			<p>
-				Ci sono inoltre diversi tipi di punti di controllo, che reagiscono diversamente all'input dell'utente. Sono distinguibili in base al colore della linea che collega minimo e massimo.
+				Ci sono inoltre diversi tipi di punti di controllo, che reagiscono diversamente all'input dell'utente. Sono distinguibili in base al colore della barra che collega minimo e massimo.
 				La differenza di comportamento tra i punti serve a garantire il mantenimento delle regole di incollamento tra superfici adiacenti.
+				Muovere i punti di controllo che causano il movimento dei punti vicini (condivisi e/o incollati) non ha un costo maggiore in termini di punteggio, pertanto è possibile sfruttarli per influenzare maggiormente il terreno a parità di costo di spostamento.
 			</p>
 			<img class="centered" src="Images/CP_types.png" />
 			<h3>Singoli</h3>
 			<p>
-				I punti di controllo identificati in nero sono punti singoli. Muoverli modificherà la superficie di B&eacute;zier del terreno, senza avere altri effetti.
+				I punti di controllo identificati dalla barra in nero sono punti singoli. Muoverli modificherà la superficie di B&eacute;zier del terreno, senza avere altri effetti.
 			</p>
 			<img class="centered" src="Images/CP_single.png" />
 			<h3>Condivisi</h3>
 			<p>
-				I punti di controllo identificati in azzurro sono punti condivisi. Questi si trovano al confine tra due tiles. Muoverli muoverà anche i punti adiacenti verso l'interno delle due tiles.
+				I punti di controllo identificati dalla barra in azzurro sono punti condivisi. Questi si trovano al confine tra due tiles. Muoverli muoverà anche i punti adiacenti verso l'interno delle due tiles.
 				Tutti i punti affetti si muoveranno della stessa distanza.
 			</p>
 			<img class="centered" src="Images/CP_pivot.png" />
 			<h3>Incollati</h3>
 			<p>
-				I punti di controllo identificati in rosso sono punti incollati. Sono tutti adiacenti ad almeno un punto condiviso, e i loro limiti di altezza minima e massima dipendono dall'altezza del punto condiviso cui sono associati.
+				I punti di controllo identificati dalla barra in rosso sono punti incollati. Sono tutti adiacenti ad almeno un punto condiviso, e i loro limiti di altezza minima e massima dipendono dall'altezza del punto condiviso cui sono associati.
 				Muovere un punto incollato di una certa altezza causerà uno spostamento inverso al punto incollato opposto.
 			</p>
 			<img class="centered" src="Images/CP_glued.png" />
 			<h3>Condivisi ed incollati</h3>
 			<p>
-				I punti di controllo identificati in giallo sono sia condivisi che incollati. Questo avviene in ogni area dove 4 tiles diverse hanno un vertice in comune.
+				I punti di controllo identificati dalla barra in giallo sono sia condivisi che incollati. Questo avviene in ogni area dove 4 tiles diverse hanno un vertice in comune.
 				Quel vertice sarà un punto condiviso, e tutti i 4 vertici a lui adiacenti saranno sia condivissi tra due diverse tiles, che incollati attraverso il punto condiviso dalle 4 tiles.
 				Muoverli causa un unione dei comportamenti dei punti condivisi e di quelli incollati.
 			</p>
+			<img class="centered" src="Images/Gluing_pain.png" />
 			<h3>Fissi</h3>
 			<p>
-				Alcuni punti di controllo non hanno la linea ed i cubi di massimo/minimo. Questi punti non posssono essere mossi.
+				Alcuni punti di controllo non hanno la linea ed i cubi di massimo/minimo. Questi punti, anche se non possono essere mossi, sono utili a far capire l'andamento del terreno e dare forma al livello.
 			</p>
 			<img class="centered" src="Images/CP_static.png" />
 
@@ -123,7 +128,7 @@
 				ed il livello può essere vinto se il punteggio torna in positivo grazie alle monete raccolte.
 			</p>
 			<h2>Piattaforme</h2>
-			<p>Sono inoltre presenti delle piattaforme che possono avere effetti diversi sulla pallina.</p>
+			<p>Sono inoltre presenti delle piattaforme che possono avere effetti diversi sulla pallina. Utilizzarli o evitarli può essere necessario per il completamento di alcuni livelli.</p>
 			<h3>Piattaforma di accelerazione</h3>
 			<p>Le piattaforme <span style="background-image: radial-gradient(green 50%, transparent)">verdi</span> imprimono un'accelerazione notevole sulla pallina.</p>
 			<h3>Piattaforme di rallentamento</h3>
