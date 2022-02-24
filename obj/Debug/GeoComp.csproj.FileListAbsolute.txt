@@ -1,7 +1,0 @@
-C:\Users\Utente\Desktop\LocalUni\GEOCOMP\GeoComp_website\GeoComp\bin\TypeScriptHTMLApp1.dll.config
-C:\Users\Utente\Desktop\LocalUni\GEOCOMP\GeoComp_website\GeoComp\bin\TypeScriptHTMLApp1.dll
-C:\Users\Utente\Desktop\LocalUni\GEOCOMP\GeoComp_website\GeoComp\bin\TypeScriptHTMLApp1.pdb
-C:\Users\Utente\Desktop\LocalUni\GEOCOMP\GeoComp_website\GeoComp\obj\Debug\GeoComp.csproj.CoreCompileInputs.cache
-C:\Users\Utente\Desktop\LocalUni\GEOCOMP\GeoComp_website\GeoComp\obj\Debug\TypeScriptHTMLApp1.dll
-C:\Users\Utente\Desktop\LocalUni\GEOCOMP\GeoComp_website\GeoComp\obj\Debug\TypeScriptHTMLApp1.pdb
-C:\Users\Utente\Desktop\LocalUni\GEOCOMP\GeoComp_website\GeoComp\obj\Debug\GeoComp.csprojAssemblyReference.cache

@@ -79,22 +79,27 @@
 
 			<h2>Punti di controllo</h2>
 			<p>
-				Il giocatore può alterare il mondo di gioco spostando sull'asse verticale I alcuni punti di controllo, modificando quindi la superficie risultante.<br />
-				Ogni punto di controllo ha un'altezza massima (cubo <span style="background-image: radial-gradient(blue 50%, transparent)">blu</span>),
-				una minima (cubo <span style="background-image: radial-gradient(red 50%, transparent)">rosso</span>),
-				ed una di partenza (cubo <span style="background-image: radial-gradient(purple 50%, transparent)">viola</span>).<br />
-				Il punto di controllo vero e proprio è rappresentato da una sfera, che può essere spostata cliccando su di essa con il tasto sinistro del mouse (per utenti Apple clic con entrambe le dita sul pulsante del mouse) e tenendo il tasto premuto fino durante il trascinamento.
+				Il giocatore può alterare il mondo di gioco spostando i punti di controllo sul loro asse verticale, modificando quindi la superficie risultante.<br />
+				Il punto di controllo è rappresentato da una sfera, che può essere spostata cliccando su di essa con il tasto sinistro del mouse 
+				(per utenti Apple clic con entrambe le dita sul pulsante del mouse) e tenendo il tasto premuto fino durante il trascinamento. <br />
+				Ogni punto di controllo ha una barra verticale che indica i limiti di spostamento del punto di controllo e una 
+				posizione di partenza indicata da un cubo <span style="background-image: radial-gradient(purple 1%, transparent)">viola</span>,
+				utile a capire quanto ci si è discostati dalla posizione originale durante la manipolazione del terreno di gioco.<br />
+
 			</p>
 			<img class="centered" src="Images/CP_anatomy.png" />
 			<p>
-				Ci sono inoltre diversi tipi di punti di controllo, che reagiscono diversamente all'input dell'utente. Sono distinguibili in base al colore della barra che collega minimo e massimo.
+				Possiamo identificare diversi tipi di punti di controllo, che reagiscono diversamente all'input dell'utente. 
+				Sono distinguibili in base al colore della barra verticale.
 				La differenza di comportamento tra i punti serve a garantire il mantenimento delle regole di incollamento tra superfici adiacenti.
-				Muovere i punti di controllo che causano il movimento dei punti vicini (condivisi e/o incollati) non ha un costo maggiore in termini di punteggio, pertanto è possibile sfruttarli per influenzare maggiormente il terreno a parità di costo di spostamento.
+				Muovere i punti di controllo che causano il movimento dei punti vicini (condivisi e/o incollati) non ha un costo maggiore in termini di punteggio, 
+				pertanto è possibile sfruttarli per influenzare maggiormente il terreno a parità di costo di spostamento.
 			</p>
 			<img class="centered" src="Images/CP_types.png" />
 			<h3>Singoli</h3>
 			<p>
-				I punti di controllo identificati dalla barra in nero sono punti singoli. Muoverli modificherà la superficie di B&eacute;zier del terreno, senza avere altri effetti.
+				I punti di controllo identificati dalla barra in nero sono punti singoli. 
+				Muoverli modificherà la superficie di B&eacute;zier del terreno, senza avere altri effetti.
 			</p>
 			<img class="centered" src="Images/CP_single.png" />
 			<h3>Condivisi</h3>
@@ -130,11 +135,11 @@
 			<h2>Piattaforme</h2>
 			<p>Sono inoltre presenti delle piattaforme che possono avere effetti diversi sulla pallina. Utilizzarli o evitarli può essere necessario per il completamento di alcuni livelli.</p>
 			<h3>Piattaforma di accelerazione</h3>
-			<p>Le piattaforme <span style="background-image: radial-gradient(green 50%, transparent)">verdi</span> imprimono un'accelerazione notevole sulla pallina.</p>
+			<p>Le piattaforme <span style="background-image: radial-gradient(green 1%, transparent)">verdi</span> imprimono un'accelerazione notevole sulla pallina.</p>
 			<h3>Piattaforme di rallentamento</h3>
-			<p>Le piattaforme <span style="background-image: radial-gradient(red 50%, transparent)">rosse</span> rallentano notevolmente la pallina.</p>
+			<p>Le piattaforme <span style="background-image: radial-gradient(red 1%, transparent)">rosse</span> rallentano notevolmente la pallina.</p>
 			<h3>Piattaforme di salto</h3>
-			<p>Le piattaforme <span style="background-image: radial-gradient(yellow 50%, transparent)">gialle</span> fanno saltare la pallina.</p>
+			<p>Le piattaforme <span style="background-image: radial-gradient(yellow 1%, transparent) ">gialle</span> fanno saltare la pallina.</p>
 
 		</div>
 	</div>
