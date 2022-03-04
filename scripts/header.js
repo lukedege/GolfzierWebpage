@@ -58,8 +58,8 @@ window.onload = () =>
 	let tabs = document.getElementById("tabs");
 	tabs.appendChild(spawn_tab("🏠&#xFE0E; Home"   , "index" ));
 	tabs.appendChild(spawn_tab("🎮&#xFE0E; Applet" , "applet"));
-	tabs.appendChild(spawn_tab("🏫&#xFE0E; Teoria" , "Theory"));
-	tabs.appendChild(spawn_tab("🕮&#xFE0E; Manuale", "Manual"));
+	tabs.appendChild(spawn_tab("🎓&#xFE0E; Teoria" , "theory"));
+	tabs.appendChild(spawn_tab("📖&#xFE0E; Manuale", "manual"));
 
 	let theme_tab = document.createElement("a");
 	theme_tab.setAttribute("href", dark_theme ? "?" : "?dark");
