@@ -63,7 +63,7 @@ window.onload = () =>
 
 	let theme_tab = document.createElement("a");
 	theme_tab.setAttribute("href", dark_theme ? "?" : "?dark");
-	theme_tab.innerHTML = "⬤&#xFE0E; Cambia Sfondo";
+	theme_tab.innerHTML = "⬤&#xFE0E; Cambia Tema";
 	theme_tab.classList.add("tablink");
 	theme_tab.style.width = "12%";
 
